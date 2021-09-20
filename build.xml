@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE project []>
+<project default="checksum" name="empresas" basedir=".">
+	<target name="checkum.config">
+			<condition property="checksum.run">
+				<not>
+					<equals arg1="${target}" arg2="desa" />
+				</not>
+			</condition>
+		</target>
+		<target name="inventario.config">
+			<condition property="inventario.run">
+				<not>
+					<equals arg1="${target}" arg2="desa" />
+				</not>
+			</condition>
+		</target>
+	<target name="checksum" description="Genera los checksum" depends="checkum.config" if="checksum.run">
+		<echo message="Calculando checksums de ${project.name} ambiente  ${target} ..." />
+		<taskdef name="cksum" classname="com.banelco.util.ant.task.Checksum">
+			<classpath>
+				<fileset dir="${external.libs.dir}">
+					<include name="*.jar" />
+				</fileset>
+				<pathelement path="../../Utilidades/out/main" />
+			</classpath>
+		</taskdef>
+
+		<cksum relative="true" output="${dist}/${project.name}.cks" specialfilepattern="${jarName}" standardSort="false">
+			<fileset dir="../api/target/classes" id="api">
+				<include name="**/*.*" />
+				<exclude name="**/empresas-api.properties" />
+			</fileset>
+		</cksum>
+
+		<cksum relative="true" output="${dist}/${project.name}_CKS.txt" >
+			<fileset dir="${dist}" includes="${project.name}.cks" />
+		</cksum>
+
+		<echo message=" " />
+		<echo message=" " />
+		<echo message="ATENCION: VERIFIQUE LOS SIGUIENTES VALORES ...." />
+		<cksum relative="true">
+			<fileset dir="${dist}" includes="${project.name}_CKS.txt" />
+		</cksum>
+		<echo message=" " />
+		<echo message=" " />
+	</target>
+
+	<target name="inventario" description="Genera el inventario" depends="inventario.config" if="inventario.run">
+		<taskdef name="invertario" classname="com.banelco.util.ant.task.Inventario">
+			<classpath>
+				<pathelement path="../../Utilidades/out/main" />
+				<fileset dir="${external.libs.dir}">
+					<include name="*.jar" />
+				</fileset>
+			</classpath>
+		</taskdef>
+
+		<invertario nombreaplicacion="${project.name}" output="${dist}/inventario_${project.name}.txt" propFilePath="../Utilidades/out/main" >
+			<fileset dir="../api/src/main" id="api">
+				<include name="**/*.*" />
+				<exclude name="**/empresas-api.properties" />
+			</fileset>
+		</invertario>
+	</target>
+
+</project>

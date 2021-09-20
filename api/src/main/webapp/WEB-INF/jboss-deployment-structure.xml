@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-deployment-structure>
+    <deployment>
+		<dependencies>
+			<module name="org.springframework.spring" export="true" meta-inf="export" />
+			<module name="org.apache.httpcomponents" />
+			<module name="org.apache.commons.codec" />
+			<module name="org.apache.commons.lang" />
+			<module name="org.apache.commons.io" />
+			<module name="org.apache.commons.configuration" slot="1.5" export="true" />
+			<module name="org.hibernate" />
+		</dependencies>
+		<exclude-subsystems>
+			<subsystem name="weld" />
+		</exclude-subsystems>
+		<exclusions>
+			<module name="org.jboss.resteasy.resteasy-jackson-provider"/>
+            <module name="org.jboss.resteasy.resteasy-jettison-provider"/>
+            <module name="org.jboss.resteasy.resteasy-jackson2-provider"/>
+		</exclusions>
+	</deployment>
+
+</jboss-deployment-structure>

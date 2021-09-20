@@ -1,0 +1,126 @@
+<md-card>
+	<md-card-title ng-show="estados">
+		<md-card-title-text>
+	    	<span class="md-title">Estado PagoMisCuentas</span>
+		</md-card-title-text>
+	</md-card-title>
+	<md-card-content ng-show="estados">
+		<md-table-container>
+		<table md-table>
+			<thead md-head>
+				<tr md-row>
+					<th md-column>Fecha</th>
+					<th md-column>Rubros</th>
+					<th md-column>Sub Rubros</th>
+					<th md-column>Empresas</th>
+					<th md-column hide-sm hide-xs>Empresas con error</th>
+					<th md-column>Prepagos</th>
+					<th md-column hide-sm hide-xs>Prepagos con error</th>
+					<th md-column>Tiempo</th>
+				</tr>
+			</thead>
+			<tbody md-body ng-init="verMas = false">
+				<tr md-row ng-repeat="e in estados | filter: {institucion:'DEMO'} |limitTo : verMas ? 10 : 1">
+					<td md-cell>{{e.fecha}}</td>
+					<td md-cell>{{e.cantRubros}}</td>
+					<td md-cell>{{e.cantSubRubros}}</td>
+					<td md-cell>{{e.cantEmpresas}}</td>
+					<td md-cell hide-sm hide-xs>{{e.cantEmpresasError}}</td>
+					<td md-cell>{{e.cantPrepagos}}</td>
+					<td md-cell hide-sm hide-xs>{{e.cantPrepagosError}}</td>
+					<td md-cell>{{e.tiempo}}</td>
+				</tr>
+			</tbody>
+		</table>
+		</md-table-container>
+	</md-card-content>
+	 <md-card-actions layout="row" layout-align="end center">
+	   	<md-button class="md-button md-raised md-primary" ng-click="doRefresh('DEMO')" access="ROL2,ROL3">Ejecutar Refresh</md-button>
+	   	<md-button class="md-button md-raised" ng-click="doRefreshMemory('DEMO')" access="ROL3">Recargar en memoria</md-button>
+	   	<span flex=""></span>
+		<md-button class="md-button md-raised" ng-show="estados.length > 1 && !verMas" ng-click="verMas = !verMas">Ver M&#225;s</md-button>
+		<md-button class="md-button md-raised" ng-show="estados.length > 1 && verMas" ng-click="verMas = !verMas">Ver Menos</md-button>
+	</md-card-actions>
+</md-card>
+<md-card>
+	<md-card-title ng-show="estados">
+		<md-card-title-text>
+	    	<span class="md-title">Estado MarketPlace</span>
+		</md-card-title-text>
+	</md-card-title>
+	<md-card-content ng-show="estados">
+		<md-table-container>
+		<table md-table>
+			<thead md-head>
+				<tr md-row>
+					<th md-column>Fecha</th>
+					<th md-column>Rubros</th>
+					<th md-column>Sub Rubros</th>
+					<th md-column>Empresas</th>
+					<th md-column hide-sm hide-xs>Empresas con error</th>
+					<th md-column>Tiempo</th>
+				</tr>
+			</thead>
+			<tbody md-body ng-init="verMasMarketPlace = false">
+				<tr md-row ng-repeat="e in estados | filter: {institucion:'TPGO'} | limitTo : verMasMarketPlace ? 10 : 1">
+					<td md-cell>{{e.fecha}}</td>
+					<td md-cell>{{e.cantRubros}}</td>
+					<td md-cell>{{e.cantSubRubros}}</td>
+					<td md-cell>{{e.cantEmpresas}}</td>
+					<td md-cell hide-sm hide-xs>{{e.cantEmpresasError}}</td>
+					<td md-cell>{{e.tiempo}}</td>
+				</tr>
+			</tbody>
+		</table>
+		</md-table-container>
+	</md-card-content>
+	 <md-card-actions layout="row" layout-align="end center">
+	   	<md-button class="md-button md-raised md-primary" ng-click="doRefresh('TPGO')" access="ROL2,ROL3">Ejecutar Refresh</md-button>
+	   	<md-button class="md-button md-raised" ng-click="doRefreshMemory('TPGO')" access="ROL3">Recargar en memoria</md-button>
+	   	<span flex=""></span>
+		<md-button class="md-button md-raised" ng-show="estados.length > 1 && !verMasMarketPlace" ng-click="verMasMarketPlace = !verMasMarketPlace">Ver M&#225;s</md-button>
+		<md-button class="md-button md-raised" ng-show="estados.length > 1 && verMasMarketPlace" ng-click="verMasMarketPlace = !verMasMarketPlace">Ver Menos</md-button>
+	</md-card-actions>
+</md-card>
+
+<!-- Estado Efectivo -->
+<md-card>
+	<md-card-title ng-show="estados">
+		<md-card-title-text>
+	    	<span class="md-title">Estado Efectivo</span>
+		</md-card-title-text>
+	</md-card-title>
+	<md-card-content ng-show="estados">
+		<md-table-container>
+		<table md-table>
+			<thead md-head>
+				<tr md-row>
+					<th md-column>Fecha</th>
+					<th md-column>Rubros</th>
+					<th md-column>Sub Rubros</th>
+					<th md-column>Empresas</th>
+					<th md-column hide-sm hide-xs>Empresas con error</th>
+					<th md-column>Tiempo</th>
+				</tr>
+			</thead>
+			<tbody md-body ng-init="seeMoreCash = false;">
+				<tr md-row ng-repeat="e in estados | filter: {institucion:efecInstitucion} | limitTo : seeMoreCash ? 10 : 1">
+					<td md-cell>{{e.fecha}}</td>
+					<td md-cell>{{e.cantRubros}}</td>
+					<td md-cell>{{e.cantSubRubros}}</td>
+					<td md-cell>{{e.cantEmpresas}}</td>
+					<td md-cell hide-sm hide-xs>{{e.cantEmpresasError}}</td>
+					<td md-cell>{{e.tiempo}}</td>
+				</tr>
+			</tbody>
+		</table>
+		</md-table-container>
+	</md-card-content>
+	 <md-card-actions layout="row" layout-align="end center">
+	   	<md-button class="md-button md-raised md-primary" ng-click="doRefresh(efecInstitucion)" access="ROL2,ROL3">Ejecutar Refresh</md-button>
+	   	<md-button class="md-button md-raised" ng-click="doRefreshMemory(efecInstitucion)" access="ROL3">Recargar en memoria</md-button>
+	   	<span flex=""></span>
+		<md-button class="md-button md-raised" ng-show="estados.length > 1 && !seeMoreCash" ng-click="seeMoreCash = !seeMoreCash">Ver M&#225;s</md-button>
+		<md-button class="md-button md-raised" ng-show="estados.length > 1 && seeMoreCash" ng-click="seeMoreCash = !seeMoreCash">Ver Menos</md-button>
+	</md-card-actions>
+</md-card>

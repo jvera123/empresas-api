@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans-3.1.xsd 
+						http://www.springframework.org/schema/context 
+						http://www.springframework.org/schema/context/spring-context-3.1.xsd 
+						http://www.springframework.org/schema/tx 
+						http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+
+	<!-- Hibernate DS Configuration -->
+	<bean id="dataSourceEmpresa" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:jboss/empresas-ds" />
+	</bean>
+
+	<bean id="entityManagerFactoryEmpresa" name="emfEmpresa"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSourceEmpresa" />
+		<property name="packagesToScan" value="com.banelco.empresas.model.entity" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+		</property>
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.SQLServer2008Dialect</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.format_sql">false</prop>
+				<prop key="hibernate.cache.use_query_cache">true</prop>
+				<prop key="hibernate.cache.region.factory_class">org.jboss.as.jpa.hibernate4.infinispan.InfinispanRegionFactory</prop>
+				<prop key="hibernate.cache.infinispan.cachemanager">java:jboss/infinispan/container/hibernate</prop>     
+				<prop key="hibernate.transaction.manager_lookup_class">org.hibernate.transaction.JBossTransactionManagerLookup</prop>
+				<prop key="hibernate.cache.use_second_level_cache">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="transactionManagerEmpresa" name ="tmEmpresa" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactoryEmpresa" />
+	</bean>
+	
+	<bean id="dataSourceAyuda" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:jboss/ayudaempresas-ds" />
+	</bean>
+
+	<bean id="entityManagerFactoryAyuda" name="emfAyuda"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSourceAyuda" />
+		<property name="packagesToScan" value="com.banelco.empresas.model.ayudas" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+		</property>
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.SQLServer2005Dialect</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.format_sql">false</prop>
+<!-- 				<prop key="hibernate.hbm2ddl.auto">validate</prop> -->
+			</props>
+		</property>
+	</bean>
+
+	<bean id="transactionManagerAyuda" name ="tmAyuda" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactoryAyuda" />
+	</bean>
+	
+	<bean id="dataSourceMicroservicios" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:jboss/microserviciosapi-ds" />
+	</bean>
+
+	<bean id="entityManagerFactoryMicroservicios" name="emfMicroservicios"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSourceMicroservicios" />
+		<property name="packagesToScan" value="com.banelco.empresas.model.microservicios" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+		</property>
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.SQLServer2005Dialect</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.format_sql">false</prop>
+<!-- 				<prop key="hibernate.hbm2ddl.auto">validate</prop> -->
+			</props>
+		</property>
+	</bean>
+
+	<bean id="transactionManagerMicroservicios" name ="tmMicroservicios" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactoryMicroservicios" />
+	</bean>
+
+<!-- 	<tx:annotation-driven transaction-manager="transactionManagerEmpresa" /> -->
+
+</beans>

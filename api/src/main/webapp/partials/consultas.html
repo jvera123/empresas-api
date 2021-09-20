@@ -1,0 +1,147 @@
+<div layout-xs="column" layout-sm="column" layout-gt-sm="row"
+	layout-align-xs="center center" layout-align-sm="center center"
+	layout-align-gt-sm="center start" layout-fill>
+	<div class="row">
+		<md-card class="loginBox"> 
+			<md-card-title> 
+				<md-card-title-text>
+					<span class="md-title">PagoMisCuentas</span> 
+				</md-card-title-text> 
+			</md-card-title> 
+			<md-card-content layout="column" class="md-padding"> 
+				<form ng-submit="buscarEmpresa('DEMO')">
+					<md-input-container layout-fill >
+						<label>Nombre</label> 
+						<input type="text" ng-model="nombreEmpresaDEMO"/>
+					</md-input-container>
+				</form>
+				<md-input-container ng-show="showBuscarEmpresaDEMO">
+					<label>Empresa</label> 
+					<md-select ng-model="e.codigo" ng-change="setBuscarEmpresa(e.codigo,'DEMO')"> 
+						<md-option ng-repeat="e in combBuscarEmpresas" value="{{e.codigo}}">{{e.nombre}}</md-option>
+					</md-select> 
+				</md-input-container>
+				<md-divider md-inset></md-divider>
+				<md-input-container>
+					<label>Rubro</label> 
+					<md-select ng-model="r.idRubro" ng-change="setRubro(r.idRubro,'DEMO')"> 
+						<md-option ng-repeat="r in rubrosPMC | orderBy : 'nombre'" value="{{r.idRubro}}">{{r.nombre}}</md-option>
+					</md-select> 
+				</md-input-container> 
+				<md-input-container ng-show="showSubRubroPMC">
+					<label>Sub Rubro</label> 
+					<md-select ng-model="s.idRubro" ng-change="setSubRubro(s.idRubro,'DEMO')"> 
+						<md-option ng-repeat="s in subRubro" value="{{s.idRubro}}">{{s.nombre}}</md-option>
+					</md-select> 
+				</md-input-container> 
+				<md-input-container ng-show="showcomboEmpresaPMC">
+					<label>Empresa</label> 
+					<md-select ng-model="e.codigo" ng-change="setEmpresa(e.codigo,'DEMO')"> 
+						<md-option ng-repeat="e in combEmpresas" value="{{e.codigo}}">{{e.nombre}}</md-option>
+					</md-select> 
+				</md-input-container> 
+			</md-card-content> 
+		</md-card>
+	</div>
+	<div class="row">
+		<md-card class="loginBox"> 
+			<md-card-title> 
+				<md-card-title-text>
+					<span class="md-title">MarketPlace</span> 
+				</md-card-title-text> 
+			</md-card-title> 
+			<md-card-content layout="column" class="md-padding"> 
+				<form ng-submit="buscarEmpresa('TPGO')">
+					<md-input-container layout-fill >
+						<label>Nombre</label> 
+						<input type="text" ng-model="nombreEmpresaTPGO"/>
+					</md-input-container>
+				</form>
+				<md-input-container ng-show="showBuscarEmpresaTPGO">
+					<label>Empresa</label> 
+					<md-select ng-model="e.codigo" ng-change="setBuscarEmpresa(e.codigo,'TPGO')"> 
+						<md-option ng-repeat="e in combBuscarEmpresas" value="{{e.codigo}}">{{e.nombre}}</md-option>
+					</md-select> 
+				</md-input-container>
+				<md-divider md-inset></md-divider>
+				<md-input-container>
+					<label>Rubro</label> 
+					<md-select ng-model="rt.idRubro" ng-change="setRubro(rt.idRubro,'TPGO')"> 
+						<md-option ng-repeat="rt in rubrosTPGO" value="{{rt.idRubro}}">{{rt.nombre}}</md-option>
+					</md-select> 
+				</md-input-container> 
+				<md-input-container ng-show="showSubRubroTPGO">
+					<label>Sub Rubro</label> 
+					<md-select ng-model="s.idRubro" ng-change="setSubRubro(s.idRubro,'TPGO')"> 
+						<md-option ng-repeat="s in subRubro" value="{{s.idRubro}}">{{s.nombre}}</md-option>
+					</md-select> 
+				</md-input-container> 
+				<md-input-container ng-show="showcomboEmpresaTPGO">
+					<label>Empresa</label> 
+					<md-select ng-model="e.codigo" ng-change="setEmpresa(e.codigo,'TPGO')"> 
+						<md-option ng-repeat="e in combEmpresas" value="{{e.codigo}}">{{e.nombre}}</md-option>
+					</md-select> 
+				</md-input-container>
+			</md-card-content> 
+		</md-card>
+	</div>
+	<div class="row">
+		<md-card class="loginBox"> 
+			<md-card-title> 
+				<md-card-title-text>
+					<span class="md-title">Efectivo</span> 
+				</md-card-title-text> 
+			</md-card-title> 
+			<md-card-content layout="column" class="md-padding"> 
+				<form ng-submit="buscarEmpresa(institucionEFEC)">
+					<md-input-container layout-fill >
+						<label>Nombre</label> 
+						<input type="text" ng-model="nombreEmpresaEFEC"/>
+					</md-input-container>
+				</form>
+				<md-input-container ng-show="showBuscarEmpresaEFEC">
+					<label>Empresa</label> 
+					<md-select ng-model="e.codigo" ng-change="setBuscarEmpresa(e.codigo,institucionEFEC)"> 
+						<md-option ng-repeat="e in combBuscarEmpresas" value="{{e.codigo}}">{{e.nombre}}</md-option>
+					</md-select> 
+				</md-input-container>
+				<md-divider md-inset></md-divider>
+				<md-input-container>
+					<label>Rubro</label> 
+					<md-select ng-model="rt.idRubro" ng-change="setRubro(rt.idRubro,institucionEFEC)"> 
+						<md-option ng-repeat="rt in rubrosEFEC" value="{{rt.idRubro}}">{{rt.nombre}}</md-option>
+					</md-select> 
+				</md-input-container> 
+				<md-input-container ng-show="showSubRubroEFEC">
+					<label>Sub Rubro</label> 
+					<md-select ng-model="s.idRubro" ng-change="setSubRubro(s.idRubro,institucionEFEC)"> 
+						<md-option ng-repeat="s in subRubro" value="{{s.idRubro}}">{{s.nombre}}</md-option>
+					</md-select> 
+				</md-input-container> 
+				<md-input-container ng-show="showcomboEmpresaEFEC">
+					<label>Empresa</label> 
+					<md-select ng-model="e.codigo" ng-change="setEmpresa(e.codigo,institucionEFEC)"> 
+						<md-option ng-repeat="e in combEmpresas" value="{{e.codigo}}">{{e.nombre}}</md-option>
+					</md-select> 
+				</md-input-container>
+			</md-card-content> 
+		</md-card>
+	</div>
+</div>
+<div class="row" layout-xs="column" layout-sm="column"
+	layout-gt-sm="row" layout-align-xs="center center"
+	layout-align-sm="center center" layout-align-gt-sm="center start"
+	layout-fill>
+	<md-card class="loginBox" ng-show="empresa"> 
+		<md-card-title> 
+			<md-card-title-text>
+				<span class="md-title" ng-show="showBuscarEmpresaDEMO || showcomboEmpresaPMC">Resultado PagoMisCuentas</span>
+				<span class="md-title" ng-show="showBuscarEmpresaTPGO || showcomboEmpresaTPGO">Resultado MarketPlace</span> 
+				<span class="md-title" ng-show="showBuscarEmpresaEFEC || showcomboEmpresaEFEC">Resultado Efectivo</span> 
+			</md-card-title-text> 
+		</md-card-title>
+		<md-card-content layout="column" class="md-padding"> 
+			<pre>{{empresa | json}}</pre>
+		</md-card-content> 
+	</md-card>
+</div>

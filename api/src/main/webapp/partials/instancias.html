@@ -1,0 +1,98 @@
+<md-card ng-show="instancias">
+	<md-card-title>
+		<md-card-title-text>
+	    	<span class="md-title">Instancias PagoMisCuentas</span>
+		</md-card-title-text>
+	</md-card-title>
+	<md-card-content>
+		<md-table-container>
+		<table md-table>
+			<thead md-head>
+				<tr md-row>
+					<th md-column>Instancia</th>
+					<th md-column>Fecha</th>
+					<th md-column>Estado</th>
+					<th md-column>Tiempo</th>
+					<th md-column access="ROL2">Acciones</th>
+				</tr>
+			</thead>
+			<tbody md-body>
+				<tr md-row ng-repeat="i in instancias" ng-if="i.fiid == 'DEMO'" class="{{ i.actualizar && !i.error ? 'row-warn' : '' }} {{ i.error ? 'row-error' : '' }}">
+					<td md-cell>{{i.idInstancia}}</td>
+					<td md-cell>{{i.fecha}}</td>
+					<td md-cell ng-show="i.error">
+						<md-icon md-svg-icon="img/icons/error.svg"></md-icon>
+						<md-tooltip class="large">{{i.resultado}}</md-tooltip>
+						ERROR
+					</td>
+					<td md-cell ng-show="i.actualizar && !i.error">
+						<md-icon md-svg-icon="img/icons/warning.svg"></md-icon>
+						<md-tooltip class="large">La fecha de actualizaci&#243;n de esta instancia es anterior al &#250;ltimo Refresh</md-tooltip>
+						ACTUALIZAR
+					</td>
+					<td md-cell ng-show="!i.actualizar && !i.error">
+						OK
+					</td>
+					<td md-cell>{{i.tiempo}}</td>
+					<td md-cell>
+						<md-button access="ROL2,ROL3" class="md-button md-raised" ng-click="refreshInstancia(i.idInstancia)">Actualizar</md-button>
+						<md-button access="ROL3" class="md-button" ng-click="eliminarInstancia(i.idInstancia)" aria-label="Eliminar">
+						  	<md-icon md-svg-src="img/icons/delete.svg"></md-icon>
+						  	<md-tooltip>Eliminar</md-tooltip>
+						</md-button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		</md-table-container>
+	</md-card-content>
+</md-card>
+<md-card ng-show="instancias">
+	<md-card-title>
+		<md-card-title-text>
+	    	<span class="md-title">Instancias MarketPlace</span>
+		</md-card-title-text>
+	</md-card-title>
+	<md-card-content>
+		<md-table-container>
+		<table md-table>
+			<thead md-head>
+				<tr md-row>
+					<th md-column>Instancia</th>
+					<th md-column>Fecha</th>
+					<th md-column>Estado</th>
+					<th md-column>Tiempo</th>
+					<th md-column access="ROL2">Acciones</th>
+				</tr>
+			</thead>
+			<tbody md-body>
+				<tr md-row ng-repeat="i in instancias" ng-if="i.fiid == 'TPGO'" class="{{ i.actualizar && !i.error ? 'row-warn' : '' }} {{ i.error ? 'row-error' : '' }}">
+					<td md-cell>{{i.idInstancia}}</td>
+					<td md-cell>{{i.fecha}}</td>
+					<td md-cell ng-show="i.error">
+						<md-icon md-svg-icon="img/icons/error.svg"></md-icon>
+						<md-tooltip class="large">{{i.resultado}}</md-tooltip>
+						ERROR
+					</td>
+					<td md-cell ng-show="i.actualizar && !i.error">
+						<md-icon md-svg-icon="img/icons/warning.svg"></md-icon>
+						<md-tooltip class="large">La fecha de actualizaci&#243;n de esta instancia es anterior al &#250;ltimo Refresh</md-tooltip>
+						ACTUALIZAR
+					</td>
+					<td md-cell ng-show="!i.actualizar && !i.error">
+						OK
+					</td>
+					<td md-cell>{{i.tiempo}}</td>
+					<td md-cell>
+						<md-button access="ROL2,ROL3" class="md-button md-raised" ng-click="refreshInstancia(i.idInstancia)">Actualizar</md-button>
+						<md-button access="ROL3" class="md-button" ng-click="eliminarInstancia(i.idInstancia)" aria-label="Eliminar">
+						  	<md-icon md-svg-src="img/icons/delete.svg"></md-icon>
+						  	<md-tooltip>Eliminar</md-tooltip>
+						</md-button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		</md-table-container>
+	</md-card-content>
+</md-card>

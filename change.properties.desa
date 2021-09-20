@@ -1,0 +1,17 @@
+empresas.transaccionesB24.url=http://10.10.32.44:8080/transacciones/
+empresas.transaccionesB24.connectiontimeout=5000
+empresas.transaccionesB24.receivetimeout=15000
+
+empresas.notificadorPMC.connectiontimeout=5000
+empresas.notificadorPMC.receivetimeout=60000
+
+datagrid.url=http://10.10.32.54:8080/rest/empresas-desa
+#datagrid.url=http://datagrid.prismamp.com/rest/empresas-desa
+datagrid.connectiontimeout=5000
+datagrid.receivetimeout=20000
+
+configuracion.api.url=http://localhost:8280/configuracion-api/api
+configuracion.api.connectiontimeout=30000
+configuracion.api.receivetimeout=60000
+
+com.banelco.empresas.swagger.host=localhost:8280

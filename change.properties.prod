@@ -1,0 +1,16 @@
+empresas.transaccionesB24.url=https://wssrv.banelcoservices.com.ar/transacciones/
+empresas.transaccionesB24.connectiontimeout=5000
+empresas.transaccionesB24.receivetimeout=15000
+
+empresas.notificadorPMC.connectiontimeout=5000
+empresas.notificadorPMC.receivetimeout=60000
+
+datagrid.url=http://datagrid.prismamp.com/rest/empresas-prod
+datagrid.connectiontimeout=5000
+datagrid.receivetimeout=20000
+
+configuracion.api.url=https://configuracion.prismamp.com/configuracion-api/api
+configuracion.api.connectiontimeout=30000
+configuracion.api.receivetimeout=60000
+
+com.banelco.empresas.swagger.host=interno.prismamp.com

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                        http://www.springframework.org/schema/data/jpa
+    					http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+    					http://www.springframework.org/schema/cache 
+                        http://www.springframework.org/schema/cache/spring-cache.xsd
+						http://www.springframework.org/schema/aop 
+    					http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+	<import resource="database/hibernate/hibernate-empresas.xml" />
+	
+	<jpa:repositories base-package="com.banelco.empresas.repository" 
+					  entity-manager-factory-ref="entityManagerFactoryEmpresa" 
+					  transaction-manager-ref="transactionManagerEmpresa" />
+	
+	<jpa:repositories base-package="com.banelco.empresas.repository.ayuda" 
+	                  entity-manager-factory-ref="entityManagerFactoryAyuda" 
+	                  transaction-manager-ref="transactionManagerAyuda" />
+	                  
+	<jpa:repositories base-package="com.banelco.empresas.repository.microservicios" 
+	                  entity-manager-factory-ref="entityManagerFactoryMicroservicios" 
+	                  transaction-manager-ref="transactionManagerMicroservicios" />
+	                  
+	<aop:aspectj-autoproxy />
+	<!-- Cache Manager -->
+	<cache:annotation-driven />
+	<bean id="cacheManager"
+		class="org.springframework.cache.support.SimpleCacheManager">
+		<property name="caches">
+			<set>
+				<bean name="rubros"
+					class="com.banelco.empresas.repository.SpringGuavaCacheAdapter">
+					<property name="expireAfterAccessInSeconds" value="86400" />
+					<property name="expireAfterWriteInSeconds" value="86400" />
+				</bean>
+				<bean name="prepagos"
+					class="com.banelco.empresas.repository.SpringGuavaCacheAdapter">
+					<property name="expireAfterAccessInSeconds" value="86400" />
+					<property name="expireAfterWriteInSeconds" value="86400" />
+				</bean>
+				<bean name="banks"
+					class="com.banelco.empresas.repository.SpringGuavaCacheAdapter">
+					<property name="expireAfterAccessInSeconds" value="86400" />
+					<property name="expireAfterWriteInSeconds" value="86400" />
+				</bean>
+			</set>
+		</property>
+	</bean>
+</beans>

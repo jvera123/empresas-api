@@ -1,0 +1,3 @@
+DEBUG [2018-06-29 11:33:01,636 ]configuration.ConfigurationUtils(ConfigurationUtils.java:342)-Configuration loaded from the base path fileInfo.properties
+DEBUG [2018-06-29 12:04:12,152 ]configuration.ConfigurationUtils(ConfigurationUtils.java:342)-Configuration loaded from the base path fileInfo.properties
+DEBUG [2018-06-29 17:15:57,649 ]configuration.ConfigurationUtils(ConfigurationUtils.java:342)-Configuration loaded from the base path fileInfo.properties
