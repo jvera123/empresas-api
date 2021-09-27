@@ -1,10 +1,12 @@
 package com.banelco.empresas.service.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +22,17 @@ import com.banelco.empresas.model.mapper.CategoryMapper;
 import com.banelco.empresas.repository.InstitucionRepository;
 import com.banelco.empresas.repository.RubroRepository;
 import com.banelco.empresas.rest.request.Request;
+import com.banelco.empresas.rest.response.empresas.RubroResponse;
 import com.banelco.empresas.rest.response.empresas.v2.CategoryResponse;
+import com.banelco.empresas.rest.response.empresas.v2.CompaniesSubItemResponse;
+import com.banelco.empresas.rest.response.empresas.v2.CompanyResponse;
+import com.banelco.empresas.rest.response.empresas.v2.TipoRubro;
 import com.banelco.empresas.rest.response.transacciones.RubroResponseTX;
 import com.banelco.empresas.service.RubroService;
 import com.banelco.empresas.service.TransaccionesAPIService;
 import com.banelco.empresas.util.constants.Constantes;
+import com.google.common.primitives.Ints;
+
 import static com.banelco.empresas.util.constants.Constantes.INSTITUTION_NOT_FOUND_ERROR_CODE;
 import static com.banelco.empresas.util.constants.Constantes.INSTITUTION_NOT_FOUND_ERROR_MESSAGE;;
 
@@ -216,4 +224,100 @@ public class RubroServiceImpl implements RubroService {
 		List<Rubro> rubros = this.obtenerRubros(institucion.getRefreshFiid());
 		return CategoryMapper.map(rubros);
 	}
+	
+	@Override
+	public List<CompaniesSubItemResponse> findAllCompaniesSubItems(List<CategoryResponse> categories, 
+			List<CompanyResponse> companies, String subItemCheckName) throws Exception {
+		
+		List<CompaniesSubItemResponse> companiesSubItems = new ArrayList<CompaniesSubItemResponse>();
+	
+		// tipo de rubro seleccionado
+		String typeSubItemCheck = getTypeSubItem(categories, subItemCheckName);
+		
+		
+		for (CategoryResponse rubro : categories) {
+			
+			CompaniesSubItemResponse companieSubItem = getCompaniesSubItem(rubro, companies);
+			if (companieSubItem.getType().equals(typeSubItemCheck)){
+				
+				companiesSubItems.add(companieSubItem);
+			}
+		}
+		
+		
+		   
+		Collections.sort(companiesSubItems);
+		
+		
+		return filtrarSubRubros(companiesSubItems, typeSubItemCheck);
+	}
+	
+	/**
+	 * find id type of "rubros"
+	 * @param categories
+	 * @param subItemCheckName
+	 * @return
+	 */
+	private String getTypeSubItem(List<CategoryResponse> categories, String subItemCheckName) {
+		if (subItemCheckName.isEmpty())
+			return null;
+		String subItemType = null;
+		for (CategoryResponse subItem : categories) {
+			if(subItem.getName().equals(subItemCheckName)) {
+				subItemType = subItem.getId();
+			}
+		}
+		return subItemType;
+	}
+
+	/**
+	 * Filtra la lista de subRubros segun el filtro. Si rubroSeleccionado tiene ""
+	 * o null retorna toda la lista.
+	 * 
+	 * @param subRubros
+	 *            lista de subrubros
+	 * @param rubroSeleccionado
+	 *            filtro
+	 * @return lista de subrubros filtrados. Si no tiene filtro devuelve todas.
+	 */
+	private static List<CompaniesSubItemResponse> filtrarSubRubros(List<CompaniesSubItemResponse> subRubros, String rubroSeleccionado) throws Exception
+	{
+		if (StringUtils.isEmpty(rubroSeleccionado))
+		{
+			return subRubros;
+		}
+
+		List<CompaniesSubItemResponse> result = new ArrayList<CompaniesSubItemResponse>();
+		for(CompaniesSubItemResponse rubro:subRubros){
+			if (rubro.getType().equals(rubroSeleccionado))
+			{
+				result.add(rubro);
+			}
+		}
+		Collections.sort(result);
+		return result;
+	}
+
+	private CompaniesSubItemResponse getCompaniesSubItem(CategoryResponse rubro, List<CompanyResponse> companies) {
+		
+		CompaniesSubItemResponse companySubItem = new CompaniesSubItemResponse();
+		companySubItem.setCode(rubro.getId());
+		companySubItem.setType(rubro.getType());
+		companySubItem.setOrden(rubro.getOrder());
+		companySubItem.setName(rubro.getName());
+		
+		
+	
+		// TODO se debe cambiar objeto dummy
+		TipoRubro tipoRubro = new TipoRubro();
+		tipoRubro.setEmpresaComun(true);
+		tipoRubro.setPrepago(true);
+		tipoRubro.setConsulta(true);
+		companySubItem.setTypeItem(tipoRubro);
+		
+		
+		return companySubItem;
+	}
+
+
 }

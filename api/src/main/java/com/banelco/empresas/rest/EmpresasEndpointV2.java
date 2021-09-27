@@ -2,8 +2,12 @@ package com.banelco.empresas.rest;
 
 import java.util.List;
 
+
+
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -16,7 +20,10 @@ import org.springframework.stereotype.Controller;
 
 import com.banelco.empresas.manager.EmpresaManager;
 import com.banelco.empresas.model.dto.ErrorDTO;
+import com.banelco.empresas.rest.request.SubItemsRequest;
+import com.banelco.empresas.rest.request.Request;
 import com.banelco.empresas.rest.response.empresas.v2.CategoryResponse;
+import com.banelco.empresas.rest.response.empresas.v2.CompaniesSubItemResponse;
 import com.banelco.empresas.rest.response.empresas.v2.CompanyResponse;
 import com.banelco.empresas.service.RubroService;
 
@@ -98,4 +105,31 @@ public class EmpresasEndpointV2 {
 		return Response.status(Response.Status.OK.getStatusCode()).entity(response).type(MediaType.APPLICATION_JSON)
 				.build();
 	}
+	// lista sub rubros
+	@POST
+	@Path("/companies_sub_items")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Get all companies sub items", notes = "return a list companies sub items")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Companies list", response = CompaniesSubItemResponse.class, responseContainer = "List"),
+			@ApiResponse(code = 500, message = "Error", response = ErrorDTO.class) })
+	public Response findAllCompaniesSubItems(@Context HttpServletRequest requestContext,
+			@ApiParam(value = "Consumer that make the request", required = true) SubItemsRequest request)
+			throws Exception {
+		
+		List<CategoryResponse> categories = rubroService.findAllByBankId(request.getFiid());
+		
+		//List<CompanyResponse> companies = empresaManager.findAllCompaniesByBankId(request.getFiid());
+		List<CompanyResponse> companies = null;
+		
+		List<CompaniesSubItemResponse> companiesSubItemsResponse = rubroService.findAllCompaniesSubItems(categories, companies, request.getCategory().getName());
+		
+		return Response.status(Response.Status.OK.getStatusCode()).entity(companiesSubItemsResponse).type(MediaType.APPLICATION_JSON)
+				.build();
+	}
+	
+
+	
+	
 }

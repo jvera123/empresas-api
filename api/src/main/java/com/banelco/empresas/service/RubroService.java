@@ -6,6 +6,8 @@ import com.banelco.empresas.exception.EmpresasApiException;
 import com.banelco.empresas.model.entity.Rubro;
 import com.banelco.empresas.rest.request.Request;
 import com.banelco.empresas.rest.response.empresas.v2.CategoryResponse;
+import com.banelco.empresas.rest.response.empresas.v2.CompaniesSubItemResponse;
+import com.banelco.empresas.rest.response.empresas.v2.CompanyResponse;
 import com.banelco.empresas.util.annotation.NotPrintable;
 
 public interface RubroService {
@@ -38,4 +40,6 @@ public interface RubroService {
 	public void evictCache();
 	
 	public List<CategoryResponse> findAllByBankId(String bank) throws Exception;
+
+	public List<CompaniesSubItemResponse> findAllCompaniesSubItems(List<CategoryResponse> categories, List<CompanyResponse> companies, String rubroSeleccionado) throws Exception;
 }

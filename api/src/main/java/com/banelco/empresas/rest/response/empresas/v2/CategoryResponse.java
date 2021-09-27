@@ -23,7 +23,7 @@ public class CategoryResponse {
 	
 	@JsonAlias({"type", "tipo"})
 	@JsonProperty("type")
-	private String type;// {"0","1","2"}
+	private String type;
 	
 	@JsonAlias({"name", "nombre"})
 	@JsonProperty("name")
